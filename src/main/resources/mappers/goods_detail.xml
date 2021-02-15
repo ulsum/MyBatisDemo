@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodsDetail">
+
+    <select id="selectByGoodsId" parameterType="Integer" resultType="com.ulsum.mybatis.demo15.GoodsDetail">
+        SELECT * FROM t_goods_detail WHERE goods_id = #{value};
+    </select>
+
+    <select id="selectManyToOne" resultMap="rmGoodsDetailGoods">
+        SELECT * FROM t_goods_detail LIMIT 0,1;
+    </select>
+    <resultMap id="rmGoodsDetailGoods" type="com.ulsum.mybatis.demo16.GoodsDetailGoodsDTO">
+        <id property="goodsDetail.gdId" column="gd_id"></id>
+        <result property="goodsDetail.goodsId" column="goods_id"></result>
+        <result property="goodsDetail.gdPicUrl" column="gd_pic_url"></result>
+        <result property="goodsDetail.gdOrder" column="gd_order"></result>
+        <association property="goods" select="goods.selectById" column="goods_id"></association>
+    </resultMap>
+
+</mapper>
